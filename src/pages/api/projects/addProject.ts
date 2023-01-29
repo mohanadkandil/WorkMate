@@ -7,15 +7,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { title, createdAt, updatedAt, userId, tasks }: IProject = req.body;
+  const { title, userId }: Pick<IProject, "title" | "userId"> = req.body;
 
   const result = await prisma.project.create({
     data: {
       title,
-      createdAt,
-      updatedAt,
       userId,
-      tasks,
     },
   });
 
