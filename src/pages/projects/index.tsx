@@ -37,11 +37,10 @@ export default function Projects() {
     return projects;
   };
 
-  const deleteProject = async (projectId: string) => {
-    await fetch(`/api/projects/delete/${projectId}`, {
+  const deleteProject = async (id: number): Promise<void> => {
+    await fetch(`/api/projects/delete/${id}`, {
       method: "DELETE",
     });
-    console.log("deleted project: ", projectId);
   };
 
   useEffect(() => {
