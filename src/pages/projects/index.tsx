@@ -9,7 +9,7 @@ export default function Projects() {
   const [projects, setProjects] = useState<IProject[]>([]);
 
   const createProject = async () => {
-    await fetch("/api/projects/addProject", {
+    const response = await fetch("/api/projects/addProject", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,12 +18,9 @@ export default function Projects() {
         userId: "cldg0m2ch0000vlxkdm0ss5ml",
         title: projectName,
       }),
-    })
-      .then((res) => {
-        setIsOpen(false);
-        return res.json();
-      })
-      .catch((err) => console.log(err));
+    });
+    const project = await response.json();
+    setProjects([...projects, project]);
   };
 
   const getProjects = async () => {
@@ -77,7 +74,7 @@ export default function Projects() {
               />
               <div>
                 <button
-                  onClick={() => createProject()}
+                  onClick={() => createProject().then(() => setIsOpen(false))}
                   className="rounded-lg bg-primary py-2 px-4 text-sm font-medium"
                 >
                   Create
