@@ -41,6 +41,7 @@ export default function Projects() {
     await fetch(`/api/projects/delete/${id}`, {
       method: "DELETE",
     });
+    setProjects(projects.filter((project) => project.id !== id));
   };
 
   useEffect(() => {
