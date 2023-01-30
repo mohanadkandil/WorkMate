@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import { Trash } from "../../../icons";
 import type { IProject } from "../../types";
+import Link from "next/link";
 
 export default function Projects() {
   const [isOpen, setIsOpen] = useState(false);
@@ -91,24 +92,29 @@ export default function Projects() {
         <ul className="flex flex-col items-center space-y-8">
           {projects.map((project) => (
             <li key={project.id}>
-              <div className="flex w-[700px] items-center justify-between rounded-xl border-2 border-primary p-8">
-                <div className="flex">
-                  <div className="mr-16 flex flex-col">
-                    <span className="text-2xl font-medium">
-                      {project.title}
-                    </span>
-                    <span className="text-sm font-medium text-gray-400">
-                      {project.tasks?.length} Tasks completed
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <div className="relative h-4 w-[240px] rounded-lg bg-[#D9D9D9]">
-                      <div className="absolute left-0 h-full rounded-lg bg-primary"></div>
+              <div className="z-0 flex w-[700px] items-center justify-between rounded-xl border-2 border-primary p-8">
+                <Link
+                  href={`/project/${project.id}`}
+                  className="flex w-full justify-between"
+                >
+                  <div className="flex">
+                    <div className="mr-16 flex flex-col">
+                      <span className="text-2xl font-medium">
+                        {project.title}
+                      </span>
+                      <span className="text-sm font-medium text-gray-400">
+                        {project.tasks?.length} Tasks completed
+                      </span>
                     </div>
-                    <span className="text-xl font-medium">0%</span>
+                    <div className="flex items-center space-x-4">
+                      <div className="relative h-4 w-[240px] rounded-lg bg-[#D9D9D9]">
+                        <div className="absolute left-0 h-full rounded-lg bg-primary"></div>
+                      </div>
+                      <span className="text-xl font-medium">0%</span>
+                    </div>
                   </div>
-                </div>
-                <div className="flex">
+                </Link>
+                <div className="z-10 flex">
                   <button onClick={() => deleteProject(project.id)}>
                     <Trash className="h-5 w-5" />
                   </button>
