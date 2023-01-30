@@ -8,9 +8,8 @@ export default function Project() {
   const { id } = router.query;
 
   const [project, setProject] = useState<IProject>();
-  const [task, setTask] = useState("");
+  const [taskTitle, setTaskTitle] = useState("");
   const [tasks, setTasks] = useState<any[]>([]);
-  console.log("🚀 ~ file: [id].tsx:12 ~ Project ~ task", task);
 
   const getProject = async () => {
     const response = await fetch(`/api/project/${id}`, {
@@ -30,11 +29,11 @@ export default function Project() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: task,
+        title: taskTitle,
+        projectId: id,
       }),
     });
     const task = await response.json();
-    setTask(task);
     setTasks([...tasks, task]);
   };
 
@@ -51,8 +50,15 @@ export default function Project() {
       <Header />
       <div className="flex w-full flex-col justify-center">
         <h1 className="text-center text-4xl font-semibold">{project?.title}</h1>
-        <input value={task} onChange={(e) => setTask(e.target.value)} />
+        <input
+          value={taskTitle}
+          onChange={(e) => setTaskTitle(e.target.value)}
+          className="bg-red-600"
+        />
         <button onClick={() => addTask()}>Add</button>
+        {tasks.map((task) => (
+          <div key={task.id}>{task.title}</div>
+        ))}
       </div>
     </>
   );
