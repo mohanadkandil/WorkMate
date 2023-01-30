@@ -22,6 +22,7 @@ export default function Projects() {
     });
     const project = await response.json();
     setProjects([...projects, project]);
+    setProjectName("");
   };
 
   const getProjects = async (): Promise<IProject[]> => {
