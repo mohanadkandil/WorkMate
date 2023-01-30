@@ -10,7 +10,7 @@ export default function Projects() {
   const [projects, setProjects] = useState<IProject[]>([]);
 
   const createProject = async () => {
-    const response = await fetch("/api/projects/addProject", {
+    const response = await fetch("/api/project/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export default function Projects() {
   };
 
   const getProjects = async (): Promise<IProject[]> => {
-    const response = await fetch("/api/projects/getProjects", {
+    const response = await fetch("/api/projects/all", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export default function Projects() {
   };
 
   const deleteProject = async (id: number): Promise<void> => {
-    await fetch(`/api/projects/delete/${id}`, {
+    await fetch(`/api/project/delete/${id}`, {
       method: "DELETE",
     });
     setProjects(projects.filter((project) => project.id !== id));
