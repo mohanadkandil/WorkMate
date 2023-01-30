@@ -37,6 +37,13 @@ export default function Project() {
     setTasks([...tasks, task]);
   };
 
+  const deleteTask = async (id: number) => {
+    await fetch(`/api/project/task/delete/${id}`, {
+      method: "DELETE",
+    });
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
   const getTasks = async () => {
     const response = await fetch(`/api/project/tasks/${id}`, {
       method: "GET",
@@ -77,7 +84,12 @@ export default function Project() {
         />
         <button onClick={() => addTask()}>Add</button>
         {tasks.map((task) => (
-          <div key={task.id}>{task.title}</div>
+          <div key={task.id} className="flex space-x-4">
+            <div key={task.id}>{task.title}</div>
+            <button onClick={() => deleteTask(task.id)} className="bg-red-500">
+              Delete
+            </button>
+          </div>
         ))}
       </div>
     </>
