@@ -37,6 +37,18 @@ export default function Project() {
     setTasks([...tasks, task]);
   };
 
+  const getTasks = async () => {
+    const response = await fetch(`/api/project/tasks/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const tasks = await response.json();
+    console.log("🚀 ~ file: [id].tsx:49 ~ getTasks ~ tasks", tasks);
+    return tasks;
+  };
+
   useEffect(() => {
     const fetchProject = async () => {
       const project = await getProject();
@@ -44,6 +56,14 @@ export default function Project() {
     };
     fetchProject();
   }, [id]);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const tasks = await getTasks();
+      setTasks(tasks);
+    };
+    fetchTasks();
+  }, []);
 
   return (
     <>
