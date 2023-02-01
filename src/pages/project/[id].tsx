@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Trash } from "../../../icons";
 import Header from "../../components/Header";
 import type { IProject } from "../../types";
 
@@ -52,7 +53,6 @@ export default function Project() {
       },
     });
     const tasks = await response.json();
-    console.log("🚀 ~ file: [id].tsx:49 ~ getTasks ~ tasks", tasks);
     return tasks;
   };
 
@@ -62,7 +62,7 @@ export default function Project() {
       setProject(project);
     };
     fetchProject();
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -75,22 +75,46 @@ export default function Project() {
   return (
     <>
       <Header />
-      <div className="flex w-full flex-col justify-center">
-        <h1 className="text-center text-4xl font-semibold">{project?.title}</h1>
-        <input
-          value={taskTitle}
-          onChange={(e) => setTaskTitle(e.target.value)}
-          className="bg-red-600"
-        />
-        <button onClick={() => addTask()}>Add</button>
-        {tasks.map((task) => (
-          <div key={task.id} className="flex space-x-4">
-            <div key={task.id}>{task.title}</div>
-            <button onClick={() => deleteTask(task.id)} className="bg-red-500">
-              Delete
-            </button>
+      <h1 className="text-center text-4xl font-semibold">{project?.title}</h1>
+      <div className="mt-10 grid flex-1 grid-cols-12 px-10">
+        <div className="col-span-6">
+          <div className="flex w-full flex-col justify-center">
+            <div className="flex justify-center">
+              <button
+                onClick={() => addTask()}
+                className="w-28 rounded-lg bg-primary py-2 px-4 text-sm font-semibold"
+              >
+                Create Task
+              </button>
+            </div>
+            <div className="flex flex-col items-center space-y-5 p-10">
+              {tasks.map((task) => (
+                <div
+                  key={task.id}
+                  className="flex w-2/3 justify-between rounded-md border-2 border-primary p-3"
+                >
+                  <p className="text-sm font-medium">{task.title}</p>
+                  <button onClick={() => deleteTask(task.id)} className="">
+                    <Trash className="h-5 w-5" />
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
-        ))}
+        </div>
+        <div className="col-span-6">
+          <div className="mx-auto flex max-w-[400px] flex-col justify-between rounded-lg bg-primary">
+            <p className="py-5 text-center text-4xl font-semibold text-white">
+              0h:0m:0s
+            </p>
+            <div className="h-[200px] bg-[#1bc2a1]"></div>
+            <div className="mx-auto p-5">
+              <button className="mx-auto rounded-md bg-white py-2 px-4 text-sm font-semibold">
+                Start
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
