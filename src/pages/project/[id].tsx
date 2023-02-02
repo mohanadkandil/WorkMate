@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Trash } from "../../../icons";
 import Header from "../../components/Header";
+import Timer from "../../components/Timer";
 import type { IProject } from "../../types";
 
 export default function Project() {
@@ -103,17 +104,7 @@ export default function Project() {
           </div>
         </div>
         <div className="col-span-6">
-          <div className="mx-auto flex max-w-[400px] flex-col justify-between rounded-lg bg-primary">
-            <p className="py-5 text-center text-4xl font-semibold text-white">
-              0h:0m:0s
-            </p>
-            <div className="h-[200px] bg-[#1bc2a1]"></div>
-            <div className="mx-auto p-5">
-              <button className="mx-auto rounded-md bg-white py-2 px-4 text-sm font-semibold">
-                Start
-              </button>
-            </div>
-          </div>
+          <Timer />
         </div>
       </div>
     </>
