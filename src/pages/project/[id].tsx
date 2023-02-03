@@ -13,7 +13,7 @@ export default function Project() {
   const [taskTitle, setTaskTitle] = useState("");
   const [tasks, setTasks] = useState<any[]>([]);
 
-  const getProject = async () => {
+  const fetchProject = async () => {
     const response = await fetch(`/api/project/${id}`, {
       method: "GET",
       headers: {
@@ -21,7 +21,7 @@ export default function Project() {
       },
     });
     const project = await response.json();
-    return project;
+    setProject(project);
   };
 
   const addTask = async () => {
@@ -46,7 +46,7 @@ export default function Project() {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  const getTasks = async () => {
+  const fetchTasks = async () => {
     const response = await fetch(`/api/project/tasks/${id}`, {
       method: "GET",
       headers: {
@@ -54,22 +54,15 @@ export default function Project() {
       },
     });
     const tasks = await response.json();
-    return tasks;
+    setTasks(tasks);
   };
 
+  // UseEffect to fetch the project and tasks
   useEffect(() => {
-    const fetchProject = async () => {
-      const project = await getProject();
-      setProject(project);
-    };
     fetchProject();
   }, []);
 
   useEffect(() => {
-    const fetchTasks = async () => {
-      const tasks = await getTasks();
-      setTasks(tasks);
-    };
     fetchTasks();
   }, []);
 
