@@ -10,7 +10,7 @@ export const Pause = ({ ...props }) => {
       <path
         d="M172 3605a1 1 0 00-1 1v6a1 1 0 002 0v-6a1 1 0 00-1-1m5 1v6a1 1 0 01-2 0v-6a1 1 0 012 0"
         transform="translate(-227 -3765) translate(56 160)"
-        fill="#21E6C1"
+        fill="black"
         stroke="none"
         strokeWidth={1}
         fillRule="evenodd"
