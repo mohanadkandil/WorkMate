@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Trash } from "../../../icons";
 import Header from "../../components/Header";
 import Timer from "../../components/Timer";
+import { fetchProject, fetchTasks, addTask, deleteTask } from "../../services";
 import type { IProject } from "../../types";
 
 export default function Project() {
@@ -13,57 +14,24 @@ export default function Project() {
   const [taskTitle, setTaskTitle] = useState("");
   const [tasks, setTasks] = useState<any[]>([]);
 
-  const fetchProject = async () => {
-    const response = await fetch(`/api/project/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const project = await response.json();
-    setProject(project);
-  };
-
-  const addTask = async () => {
-    const response = await fetch(`/api/project/task/create/${id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: taskTitle,
-        projectId: id,
-      }),
-    });
-    const task = await response.json();
+  const createTask = async () => {
+    const task = await addTask(id, taskTitle);
     setTasks([...tasks, task]);
   };
 
-  const deleteTask = async (id: number) => {
-    await fetch(`/api/project/task/delete/${id}`, {
-      method: "DELETE",
-    });
+  const remove = async (id: number) => {
+    await deleteTask(id);
     setTasks(tasks.filter((task) => task.id !== id));
   };
-
-  const fetchTasks = async () => {
-    const response = await fetch(`/api/project/tasks/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const tasks = await response.json();
-    setTasks(tasks);
-  };
-
   // UseEffect to fetch the project and tasks
   useEffect(() => {
-    fetchProject();
-  }, []);
-
-  useEffect(() => {
-    fetchTasks();
+    const fetchProjectAndTasks = async () => {
+      const project = await fetchProject(id);
+      setProject(project);
+      const tasks = await fetchTasks(id);
+      setTasks(tasks);
+    };
+    fetchProjectAndTasks();
   }, []);
 
   return (
@@ -75,7 +43,7 @@ export default function Project() {
           <div className="flex w-full flex-col justify-center">
             <div className="flex justify-center">
               <button
-                onClick={() => addTask()}
+                onClick={() => createTask()}
                 className="w-28 rounded-lg bg-primary py-2 px-4 text-sm font-semibold"
               >
                 Create Task
@@ -88,7 +56,7 @@ export default function Project() {
                   className="flex w-2/3 justify-between rounded-md border-2 border-primary p-3"
                 >
                   <p className="text-sm font-medium">{task.title}</p>
-                  <button onClick={() => deleteTask(task.id)} className="">
+                  <button onClick={() => remove(task.id)} className="">
                     <Trash className="h-5 w-5" />
                   </button>
                 </div>
