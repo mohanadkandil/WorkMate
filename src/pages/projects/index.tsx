@@ -55,10 +55,10 @@ export default function Projects() {
   return (
     <>
       <Header />
-      <div className="flex flex-col space-y-8">
-        <div className="flex">
+      <div className="flex min-h-screen flex-col space-y-8 bg-[#004643]">
+        <div className="my-10 flex justify-center">
           <button
-            className="rounded-lg bg-primary p-2 text-sm font-medium"
+            className="rounded-md bg-[#f9bc60] px-3.5 py-2 text-lg font-semibold text-[#001e1d]"
             onClick={() => setIsOpen(true)}
           >
             New Project
@@ -92,7 +92,7 @@ export default function Projects() {
         <ul className="flex flex-col items-center space-y-8">
           {projects.map((project) => (
             <li key={project.id}>
-              <div className="z-0 flex w-[700px] items-center justify-between rounded-xl border-2 border-primary p-8">
+              <div className="z-0 flex w-[700px] items-center justify-between rounded-xl bg-[#fffffe] p-8">
                 <Link
                   href={`/project/${project.id}`}
                   className="flex w-full justify-between"
