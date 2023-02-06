@@ -74,14 +74,14 @@ export default function Timer() {
       initial={{ x: 250 }}
       animate={{ x: 0 }}
       transition={{ delay: "0.4s" }}
-      className="mx-auto flex h-[400px] max-w-[400px] flex-col justify-between rounded-lg bg-primary"
+      className="flex h-[350px] w-[400px] flex-col justify-between rounded-lg bg-[#fffffe]"
     >
       <div className="flex w-full items-center justify-center p-5">
-        <h1 className="text-5xl font-semibold text-white">
+        <h1 className="text-4xl font-semibold text-black">
           {hours}h:{minutes}m:{seconds}s
         </h1>
       </div>
-      <div className="scroll flex h-2/3 w-full flex-col items-center justify-center overflow-hidden bg-[#bae1db]">
+      <div className="scroll flex h-2/3 w-full flex-col items-center justify-center overflow-hidden bg-[#fffffe]">
         <ul className="scrollbar-hide flex h-full w-full flex-col-reverse items-center justify-end overflow-scroll  px-5 font-semibold">
           {/* {timeList
             ? timeList.map((val, key) => (

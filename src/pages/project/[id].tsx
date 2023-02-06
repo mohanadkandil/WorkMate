@@ -40,9 +40,9 @@ export default function Project() {
   return (
     <>
       <Header />
-      <div className="grid min-h-screen flex-1 grid-cols-12 bg-[#004643] px-10">
+      <div className="grid min-h-screen grid-cols-12 overflow-hidden bg-[#004643] px-10">
         <div className="col-span-6 my-10">
-          <h1 className="mb-10 text-center text-4xl font-semibold">
+          <h1 className="mb-10 text-center text-4xl font-semibold text-white">
             {project?.title}
           </h1>
           <div className="flex w-full flex-col justify-center">
@@ -85,7 +85,7 @@ export default function Project() {
               {tasks.map((task) => (
                 <div
                   key={task.id}
-                  className="flex w-2/3 justify-between rounded-md border-2 border-[#f9bc60] p-3 text-white"
+                  className="flex h-full max-w-full justify-between rounded-md border-2 border-[#f9bc60] p-3 text-white"
                 >
                   <p className="text-sm font-medium">{task.title}</p>
                   <button onClick={() => remove(task.id)} className="">
